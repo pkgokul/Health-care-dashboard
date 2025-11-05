@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Care - Healthcare Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="loading" id="loading">Loading patient data...</div>
+    
+    <div class="container" id="mainContent" style="display: none;">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <img src="assets/TestLogo.svg" alt="Tech Care" class="logo-icon">
+            </div>
+            <nav class="nav">
+                <a href="#" class="nav-item">
+                    <img src="assets/home_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    Overview
+                </a>
+                <a href="#" class="nav-item active">
+                    <img src="assets/group_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    Patients
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/calendar_today_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    Schedule
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/chat_bubble_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    Messages
+                </a>
+                <a href="#" class="nav-item">
+                    <img src="assets/credit_card_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    Transactions
+                </a>
+            </nav>
+            <div class="user-profile">
+                <img src="assets/senior-woman-doctor-and-portrait-smile-for-health-2023-11-27-05-18-16-utc.png" alt="Dr. Jose Simmons" class="user-avatar">
+                <div class="user-info">
+                    <div class="user-name">Dr. Jose Simmons</div>
+                    <div class="user-role">General Practitioner</div>
+                </div>
+                <img src="assets/settings_FILL0_wght300_GRAD0_opsz24.svg" alt="Settings" class="icon-btn">
+                <img src="assets/more_vert_FILL0_wght300_GRAD0_opsz24.svg" alt="More" class="icon-btn">
+            </div>
+        </header>
+
+        <!-- Main Layout -->
+        <div class="main-layout">
+            <!-- Patients List -->
+            <aside class="patients-card">
+                <div class="card-header">
+                    <h2 class="card-title">Patients</h2>
+                    <img src="assets/search_FILL0_wght300_GRAD0_opsz24.svg" alt="Search" class="search-icon">
+                </div>
+                <div class="patients-list" id="patientsList">
+                    <!-- Patients will be dynamically loaded here -->
+                </div>
+            </aside>
+
+            <!-- Diagnosis Section -->
+            <main class="diagnosis-section">
+                <!-- Diagnosis History -->
+                <div class="diagnosis-card">
+                    <h2 class="section-title">Diagnosis History</h2>
+                    
+                    <!-- Blood Pressure Chart -->
+                    <div class="chart-header">
+                        <h3 class="chart-title">Blood Pressure</h3>
+                        <div class="chart-controls">
+                            <select class="chart-select">
+                                <option>Last 6 months</option>
+                                <option>Last 3 months</option>
+                                <option>Last year</option>
+                            </select>
+                            <div class="chart-value">
+                                <div class="value-number" id="systolicValue">--</div>
+                                <div class="value-status" id="systolicStatus">
+                                    <img src="assets/ArrowUp.svg" alt="Status" id="systolicArrow">
+                                    <span id="systolicLevel">--</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="chart-container">
+                        <canvas id="bloodPressureChart" class="chart-canvas"></canvas>
+                    </div>
+
+                    <div class="chart-legend">
+                        <div class="legend-item">
+                            <span class="legend-dot systolic"></span>
+                            <span>Systolic</span>
+                            <strong id="systolicLegend">--</strong>
+                        </div>
+                        <div class="legend-item">
+                            <span class="legend-dot diastolic"></span>
+                            <span>Diastolic</span>
+                            <strong id="diastolicLegend">--</strong>
+                        </div>
+                    </div>
+
+                    <!-- Vital Stats -->
+                    <div class="vital-stats">
+                        <div class="vital-card respiratory">
+                            <img src="assets/respiratory rate.svg" alt="Respiratory Rate" class="vital-icon">
+                            <div class="vital-label">Respiratory Rate</div>
+                            <div class="vital-value" id="respiratoryValue">-- bpm</div>
+                            <div class="vital-status" id="respiratoryStatus">--</div>
+                        </div>
+                        <div class="vital-card temperature">
+                            <img src="assets/temperature.svg" alt="Temperature" class="vital-icon">
+                            <div class="vital-label">Temperature</div>
+                            <div class="vital-value" id="temperatureValue">--°F</div>
+                            <div class="vital-status" id="temperatureStatus">--</div>
+                        </div>
+                        <div class="vital-card heart">
+                            <img src="assets/HeartBPM.svg" alt="Heart Rate" class="vital-icon">
+                            <div class="vital-label">Heart Rate</div>
+                            <div class="vital-value" id="heartRateValue">-- bpm</div>
+                            <div class="vital-status" id="heartRateStatus">
+                                <img src="assets/ArrowDown.svg" alt="Status" id="heartRateArrow">
+                                <span id="heartRateLevel">--</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Diagnostic List -->
+                <div class="diagnosis-card">
+                    <h2 class="section-title">Diagnostic List</h2>
+                    <table class="diagnostic-table">
+                        <thead>
+                            <tr>
+                                <th>Problem/Diagnosis</th>
+                                <th>Description</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody id="diagnosticTableBody">
+                            <!-- Diagnostic data will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+
+            <!-- Profile Section -->
+            <aside class="profile-card">
+                <img src="" alt="Patient" class="profile-avatar" id="profileAvatar">
+                <h2 class="profile-name" id="profileName">--</h2>
+                
+                <div class="profile-details">
+                    <div class="detail-item">
+                        <img src="assets/BirthIcon.svg" alt="Birth Date" class="detail-icon">
+                        <div class="detail-info">
+                            <div class="detail-label">Date of Birth</div>
+                            <div class="detail-value" id="profileDOB">--</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <img src="assets/FemaleIcon.svg" alt="Gender" class="detail-icon" id="genderIcon">
+                        <div class="detail-info">
+                            <div class="detail-label">Gender</div>
+                            <div class="detail-value" id="profileGender">--</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <img src="assets/PhoneIcon.svg" alt="Contact" class="detail-icon">
+                        <div class="detail-info">
+                            <div class="detail-label">Contact Info</div>
+                            <div class="detail-value" id="profilePhone">--</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <img src="assets/PhoneIcon.svg" alt="Emergency" class="detail-icon">
+                        <div class="detail-info">
+                            <div class="detail-label">Emergency Contacts</div>
+                            <div class="detail-value" id="profileEmergency">--</div>
+                        </div>
+                    </div>
+                    <div class="detail-item">
+                        <img src="assets/InsuranceIcon.svg" alt="Insurance" class="detail-icon">
+                        <div class="detail-info">
+                            <div class="detail-label">Insurance Provider</div>
+                            <div class="detail-value" id="profileInsurance">--</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="show-all-btn">Show All Information</button>
+
+                <!-- Lab Results -->
+                <div class="lab-results">
+                    <h3 class="lab-title">Lab Results</h3>
+                    <div class="lab-list" id="labResultsList">
+                        <!-- Lab results will be loaded here -->
+                    </div>
+                </div>
+            </aside>
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <script src="script.js"></script>
+</body>
